@@ -13,11 +13,13 @@ import {
   Spinner,
   Progress,
 } from '@chakra-ui/react';
+import Notification from '../components/Notification';
 
 export default function Home() {
   const toast = useToast();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -40,6 +42,7 @@ export default function Home() {
         setLoading(false);
         if (resp.status === 200) {
           setEmail('');
+
           toast({
             title: 'Success!',
             description: resp.body.message,
@@ -81,6 +84,7 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      {success && <Notification />}
       <main>
         <Container maxW='container.sm'>
           <Box
